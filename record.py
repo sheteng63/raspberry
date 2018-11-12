@@ -8,7 +8,7 @@ import wave
 # 录音
 # 录音必须安装portaudio模块，否则会报错
 # http://portaudio.com/docs/v19-doxydocs/compile_linux.html
-def recording(filename, time=0, threshold=1000):
+def recording(filename, time=0, threshold=1400):
     """
     :param filename: 文件名
     :param time: 录音时间,如果指定时间，按时间来录音，默认为自动识别是否结束录音
