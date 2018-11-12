@@ -11,8 +11,8 @@ class launch:
         pass
 
     def run(self):
-
-        while True:
+        isreturn = True
+        while isreturn:
             print("开始录音")
             # 录音
             record.recording(FILNAME)
@@ -29,7 +29,7 @@ class launch:
             # os.remove(FILNAME)
             # os.remove(FILE_SPEECH_IFK_TMP)
             print("结束录音")
-
+            isreturn = True
 
 
 launch().run()
