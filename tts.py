@@ -103,7 +103,7 @@ def ifkaiui(filepath):
     req = request.Request(URL, headers=header)
     resp = request.urlopen(req, data=data)
     res = json.loads(resp.read().decode())
-    print(res)
+    print("aiui 返回值",res)
     ansres = ""
     ansres2 = ""
     if res['code'] == '0':
