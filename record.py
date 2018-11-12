@@ -8,7 +8,7 @@ import wave
 # 录音
 # 录音必须安装portaudio模块，否则会报错
 # http://portaudio.com/docs/v19-doxydocs/compile_linux.html
-def recording(filename, time=0, threshold=4000):
+def recording(filename, time=0, threshold=1500):
     """
     :param filename: 文件名
     :param time: 录音时间,如果指定时间，按时间来录音，默认为自动识别是否结束录音
@@ -69,7 +69,7 @@ def recording(filename, time=0, threshold=4000):
                     stopflag2 = 0
                     stopflag = 0
             print(startflag)
-            if startflag > 2:
+            if startflag > 4:
                 startstate = True
             if startstate:
                 frames.append(data)
