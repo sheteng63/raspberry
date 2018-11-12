@@ -18,7 +18,7 @@ def recording(filename, time=0, threshold=1000):
     CHUNK = 1024  # 块大小
     FORMAT = pyaudio.paInt16  # 每次采集的位数
     CHANNELS = 1  # 声道数
-    RATE = 16000  # 采样率：每秒采集数据的次数
+    RATE = 44100  # 采样率：每秒采集数据的次数
     RECORD_SECONDS = time  # 录音时间
     WAVE_OUTPUT_FILENAME = filename  # 文件存放位置
     p = pyaudio.PyAudio()
