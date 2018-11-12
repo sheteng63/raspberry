@@ -11,23 +11,25 @@ class launch:
         pass
 
     def run(self):
-        while True:
+        isreturn = True
+        while isreturn:
             print("开始录音")
             # 录音
             record.recording(FILNAME)
             # 交互
-            res = tts.ifkaiui(FILNAME)
+            # res = tts.ifkaiui(FILNAME)
 
             #
 
             # 合成
-            tts.ifkspeech(res, FILE_SPEECH_IFK_TMP)
+            # tts.ifkspeech(res, FILE_SPEECH_IFK_TMP)
             # 播放
-            record.playing(FILE_SPEECH_IFK_TMP)
+            # record.playing(FILE_SPEECH_IFK_TMP)
 
-            os.remove(FILNAME)
-            os.remove(FILE_SPEECH_IFK_TMP)
+            # os.remove(FILNAME)
+            # os.remove(FILE_SPEECH_IFK_TMP)
             print("结束录音")
+            isreturn = False
 
 
 launch().run()

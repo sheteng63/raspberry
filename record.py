@@ -57,7 +57,7 @@ def recording(filename, time=0, threshold=1000):
             #     startflag2 = 0
             print("startflag 1 ", startflag)
             oneSecond = int(RATE / CHUNK)
-            # print("stopflag2 == %s stopflag == %s", stopflag2, stopflag)
+            print("stopflag2 == %s stopflag == %s", stopflag2, stopflag)
             if stopflag2 + stopflag > oneSecond:
                 if stopflag2 > oneSecond // 3 * 2:
                     if startstate:
