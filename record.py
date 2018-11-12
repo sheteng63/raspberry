@@ -61,6 +61,7 @@ def recording(filename, time=0, threshold=1500):
             if stopflag2 + stopflag > oneSecond:
                 if stopflag2 > oneSecond // 3 * 2:
                     if startstate:
+                        startflag = 0
                         break
                     else:
                         stopflag2 = 0
