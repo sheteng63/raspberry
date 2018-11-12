@@ -29,7 +29,7 @@ class launch:
             # os.remove(FILNAME)
             # os.remove(FILE_SPEECH_IFK_TMP)
             print("结束录音")
-            isreturn = True
+            isreturn = False
 
 
 launch().run()
