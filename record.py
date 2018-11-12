@@ -43,7 +43,7 @@ def recording(filename, time=0, threshold=1000):
             fft_data = np.abs(fft_temp_data)[0:fft_temp_data.size // 2 + 1]
 
             # 测试阈值，输出值用来判断阈值
-            # print(sum(fft_data) // len(fft_data))
+            print(sum(fft_data) // len(fft_data))
 
             # 判断麦克风是否停止，判断说话是否结束，# 麦克风阈值，默认7000
             if sum(fft_data) // len(fft_data) > threshold:
@@ -55,9 +55,9 @@ def recording(filename, time=0, threshold=1000):
             # if startflag2 > 2:
             #     startflag = 0
             #     startflag2 = 0
-            print("startflag 1 ", startflag)
+            # print("startflag 1 ", startflag)
             oneSecond = int(RATE / CHUNK)
-            print("stopflag2 == %s stopflag == %s", stopflag2, stopflag)
+            # print("stopflag2 == %s stopflag == %s", stopflag2, stopflag)
             if stopflag2 + stopflag > oneSecond:
                 if stopflag2 > oneSecond // 3 * 2:
                     if startstate:
