@@ -108,5 +108,5 @@ def playing(filepath):
     stream.stop_stream()
     stream.close()
     p.terminate()
-    time.sleep(3)
+    time.sleep(2)
     return
