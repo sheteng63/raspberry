@@ -5,7 +5,7 @@ from scipy import fftpack
 import wave
 
 
-# 录音
+# 录音 超时进入等待唤醒 打断机制
 # 录音必须安装portaudio模块，否则会报错
 # http://portaudio.com/docs/v19-doxydocs/compile_linux.html
 def recording(filename, time=0, threshold=1500):
@@ -52,9 +52,6 @@ def recording(filename, time=0, threshold=1500):
             else:
                 stopflag2 += 1
 
-            # if startflag2 > 2:
-            #     startflag = 0
-            #     startflag2 = 0
             # print("startflag 1 ", startflag)
             oneSecond = int(RATE / CHUNK)
             # print("stopflag2 == %s stopflag == %s", stopflag2, stopflag)
@@ -84,9 +81,6 @@ def recording(filename, time=0, threshold=1500):
         wf.setframerate(RATE)
         wf.writeframes(b''.join(frames))
 
-
-# recording('ppp.mp3', time=5)  # 按照时间来录音，录音5秒
-# recording('ppp.mp3')  # 没有声音自动停止，自动停止
 
 # 播放
 def playing(filepath):
