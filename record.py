@@ -8,7 +8,7 @@ import wave
 # 录音 超时进入等待唤醒 打断机制
 # 录音必须安装portaudio模块，否则会报错
 # http://portaudio.com/docs/v19-doxydocs/compile_linux.html
-def recording(filename,isTtsLoop, time=0, threshold=1500):
+def recording(filename, isTtsLoop, time=0, threshold=1500):
     """
     :param filename: 文件名
     :param time: 录音时间,如果指定时间，按时间来录音，默认为自动识别是否结束录音
@@ -33,6 +33,7 @@ def recording(filename,isTtsLoop, time=0, threshold=1500):
         stopflag = 0
         stopflag2 = 0
         startflag = 0
+        startCont = False
         startstate = False
         while True:
             data = stream.read(CHUNK)
@@ -48,9 +49,15 @@ def recording(filename,isTtsLoop, time=0, threshold=1500):
             # 判断麦克风是否停止，判断说话是否结束，# 麦克风阈值，默认7000
             if sum(fft_data) // len(fft_data) > threshold:
                 stopflag += 1
-                startflag += 1
+                if not startCont:
+                    startflag += 1
+                elif startflag != 0:
+                    startflag += 1
+                startCont = True
             else:
                 stopflag2 += 1
+                startflag = 0
+                startCont = False
 
             # print("startflag 1 ", startflag)
             oneSecond = int(RATE / CHUNK)
@@ -66,7 +73,7 @@ def recording(filename,isTtsLoop, time=0, threshold=1500):
                 else:
                     stopflag2 = 0
                     stopflag = 0
-            print(startflag)
+
             if startflag > 4:
                 startstate = True
             if startstate:
@@ -89,7 +96,7 @@ def recording(filename,isTtsLoop, time=0, threshold=1500):
 
 
 # 播放
-def playing(filepath,isTtsLoop):
+def playing(filepath, isTtsLoop):
     CHUNK = 1024
     wf = wave.open(filepath, 'rb')
 
