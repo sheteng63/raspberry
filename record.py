@@ -8,7 +8,7 @@ import wave
 # 录音 超时进入等待唤醒 打断机制
 # 录音必须安装portaudio模块，否则会报错
 # http://portaudio.com/docs/v19-doxydocs/compile_linux.html
-def recording(filename, time=0, threshold=1500):
+def recording(filename,isTtsLoop, time=0, threshold=1500):
     """
     :param filename: 文件名
     :param time: 录音时间,如果指定时间，按时间来录音，默认为自动识别是否结束录音
@@ -23,7 +23,7 @@ def recording(filename, time=0, threshold=1500):
     WAVE_OUTPUT_FILENAME = filename  # 文件存放位置
     p = pyaudio.PyAudio()
     stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
-    print("* 录音中...")
+    print("record start")
     frames = []
     if time > 0:
         for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
@@ -71,7 +71,13 @@ def recording(filename, time=0, threshold=1500):
                 startstate = True
             if startstate:
                 frames.append(data)
-    print("* 录音结束")
+            if not isTtsLoop:
+                stream.stop_stream()
+                stream.close()
+                p.terminate()
+                return None
+
+    print("record over")
     stream.stop_stream()
     stream.close()
     p.terminate()
@@ -83,7 +89,7 @@ def recording(filename, time=0, threshold=1500):
 
 
 # 播放
-def playing(filepath):
+def playing(filepath,isTtsLoop):
     CHUNK = 1024
     wf = wave.open(filepath, 'rb')
 
@@ -99,7 +105,11 @@ def playing(filepath):
     while data != b'':
         stream.write(data)
         data = wf.readframes(CHUNK)
-
+        if not isTtsLoop:
+            stream.stop_stream()
+            stream.close()
+            p.terminate()
+            return None
     stream.stop_stream()
     stream.close()
     p.terminate()

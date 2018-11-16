@@ -1,5 +1,5 @@
-# import record
-# import tts
+import record
+import tts
 import os
 import threading
 import queue
@@ -15,17 +15,18 @@ isClose = False #主循环
 
 
 # Tts线程
-# def run():
-#     while isTtsLoop:
-#         # 录音
-#         record.recording(FILNAME)
-#         # 交互
-#         res = tts.ifkaiui(FILNAME)
-#         #
-#         # 合成
-#         tts.ifkspeech(res, FILE_SPEECH_IFK_TMP)
-#         # 播放
-#         record.playing(FILE_SPEECH_IFK_TMP)
+def run():
+    while isTtsLoop:
+        # 录音
+        if not record.recording(FILNAME,isTtsLoop) == None:
+            # 交互
+            res = tts.ifkaiui(FILNAME)
+            # 合成
+            tts.ifkspeech(res, FILE_SPEECH_IFK_TMP)
+            # 播放
+            record.playing(FILE_SPEECH_IFK_TMP, isTtsLoop)
+            q.put("recordStop")
+
 
 # 主循环
 q = queue.Queue()
@@ -45,5 +46,6 @@ while not isClose:
         msg = q.get()
         print(msg)
         if msg == "wake":
+            run = threading.Thread(target=run, name='LoopThread')
+            run.start()
 
-            pass
